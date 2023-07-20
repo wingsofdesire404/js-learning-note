@@ -1,0 +1,43 @@
+#box1{
+    border: 1px soild;
+    height: 300px;
+    width: 300px;
+    background-color: skyblue;
+
+    position: relative;
+
+    top: 150px;
+    left: 150px
+}
+
+#box2{
+    border: 1px soild;
+    height: 100px;
+    width: 100px;
+    background-color: violet;
+
+    position: absolute; /* search for a parent that position is non-staticly */
+
+    top: 150px;
+    left: 150px
+}
+
+#box3{
+    border: 1px soild;
+    height: 100px;
+    width: 100px;
+    background-color: aqua;
+    position: fixed; /* stay fixed while scrolling */
+    top: 0px;
+    right: 0px
+}
+
+#box4{
+    border: 1px soild;
+    height: 100px;
+    width: 100px;
+    background-color: palegoldenrod;
+    position: sticky; /* stay fixed while scrolling through */
+    top: 0px;
+    bottom: 0px
+}
