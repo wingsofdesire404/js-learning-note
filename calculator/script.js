@@ -8,38 +8,38 @@ class Calculator {
 
     clear() {
         // all set to 0
-        this.previousOperant = ''
-        this.currentOperant = ''
+        this.previousOperand = ''
+        this.currentOperand = ''
         this.operation = undefined
     }
 
     delete() {
         // cut a digit
-        this.currentOperant= this.currentOperant.toString().slice(0, -1)
+        this.currentOperand= this.currentOperand.toString().slice(0, -1)
     }
 
     append(number) {
-        // add a number digit to the end of the currentOperant screen
-        if (number === '.' && this.currentOperant.includes('.')) return // if both are . then don't do anything
-        this.currentOperant = this.currentOperant.toString() + number.toString() // if not then add them up
+        // add a number digit to the end of the currentOperand screen
+        if (number === '.' && this.currentOperand.includes('.')) return // if both are . then don't do anything
+        this.currentOperand = this.currentOperand.toString() + number.toString() // if not then add them up
     }
 
     chooseOperation(operation) {
-        if (this.currentOperant === '') return; // check if currentOperant operand is empty
-        if (this.previousOperant !== '') {
+        if (this.currentOperand === '') return; // check if currentOperand operand is empty
+        if (this.previousOperand !== '') {
             // if both not empty
-            this.compute(); // compute the result if there's a previousOperant operand
+            this.compute(); // compute the result if there's a previousOperand operand
         }
         this.operation = operation; // set the chosen operation
-        this.previousOperant = this.currentOperant; // move currentOperant operand to previousOperant operand
-        this.currentOperant = ''; // clear the currentOperant operand for new input
+        this.previousOperand = this.currentOperand; // move currentOperand operand to previousOperand operand
+        this.currentOperand = ''; // clear the currentOperand operand for new input
       }
       
 
     compute() {
         let res // store computation result
-        const prev = parseFloat(this.previousOperant) // get value
-        const cur = parseFloat(this.currentOperant) // get value
+        const prev = parseFloat(this.previousOperand) // get value
+        const cur = parseFloat(this.currentOperand) // get value
         if (isNaN(prev) || isNaN(cur)) return // if both empty then return
         switch (this.operation) {
             case ('+'):
@@ -57,9 +57,9 @@ class Calculator {
             default:
                 return
         }
-        this.currentOperant = res
+        this.currentOperand = res
         this.operation = undefined
-        this.previousOperant = ''
+        this.previousOperand = ''
     }
 
     getDisplayNumber(number) {
@@ -81,9 +81,9 @@ class Calculator {
       }
 
     updateDisplay() {
-        this.current.innerText = this.getDisplayNumber(this.currentOperant) // use function inside the class to display the currentOperant number
+        this.current.innerText = this.getDisplayNumber(this.currentOperand) // use function inside the class to display the currentOperand number
         if (this.operation != null) {
-            this.previous.innerText = `${this.getDisplayNumber(this.previousOperant)} ${this.operation}`
+            this.previous.innerText = `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
         } else {
           this.previous.innerText = ''
         }
@@ -91,13 +91,15 @@ class Calculator {
 }
 
 // get all values by querySelector
-const previous = document.querySelector('[data-previous-operant]')
-const current = document.querySelector('[data-current-operant]')
 const numbers = document.querySelectorAll('[data-number]')
+const operations = document.querySelectorAll('[data-operation]')
+
+const previous = document.querySelector('[data-previous-operand]')
+const current = document.querySelector('[data-current-operand]')
 const equals = document.querySelector('[data-equals]')
 const dels = document.querySelector('[data-delete]')
 const clears = document.querySelector('[data-all-clear]')
-const operations = document.querySelectorAll('[data-operation]')
+
 
 const calculator = new Calculator(previous, current)
 
@@ -109,26 +111,22 @@ numbers.forEach(button => {
     })
 });
 
-dels.forEach(del => {
-    del.addEventListener('click', () => {
-        calculator.delete()
-        calculator.updateDisplay()
-    })
+dels.addEventListener('click', () => {
+    calculator.delete()
+    calculator.updateDisplay()
 })
 
-equals.forEach(equal => {
-    equal.addEventListener('click', () => {
-        calculator.compute()
-        calculator.updateDisplay()
-    })
+equals.addEventListener('click', () => {
+    calculator.compute()
+    calculator.updateDisplay()
 })
 
-clears.forEach(clear => {
-    clear.addEventListener('click', () => {
-        calculator.clear()
-        calculator.updateDisplay()
-    })
+
+clears.addEventListener('click', () => {
+    calculator.clear()
+    calculator.updateDisplay()
 })
+
 
 operations.forEach(operation => {
     operation.addEventListener('click', () => {
