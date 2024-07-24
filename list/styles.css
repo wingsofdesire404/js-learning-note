@@ -1,0 +1,9 @@
+body {
+    background: linear-gradient(to right, #00AAFF, #00FF6C);
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.list-area {
+    display: inline-block;
+}
